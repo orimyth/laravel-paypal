@@ -1,8 +1,8 @@
-/vendor
-/.idea
+vendor
+.idea
 .env
 composer.lock
-/build
+build
 *docker*
 *-container*
 *.phpunit*

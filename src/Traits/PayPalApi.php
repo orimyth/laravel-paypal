@@ -30,9 +30,9 @@ trait PayPalApi
 
     public function setAccessToken($response)
     {
-        $this->access_token = $response['access_token'];
+        $this->accessToken = $response['access_token'];
 
-        $this->options['headers']['Authorization'] = "{$response['token_type']} {$this->access_token}";
+        $this->options['headers']['Authorization'] = "{$response['token_type']} {$this->accessToken}";
     }
 
     private function setPayPalAppId($response)

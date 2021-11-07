@@ -7,7 +7,7 @@ namespace shayannosrat\PayPal\Traits;
 use Illuminate\Support\Arr;
 use RuntimeException;
 
-trait PayPalApIRequest
+trait PayPalRequest
 {
     use PayPalHttpClient;
     use PayPalApi;
@@ -20,13 +20,11 @@ trait PayPalApIRequest
 
     public function setApiCredentials(array $credentials)
     {
-        throw_if(
-            empty($credentials),
-            RuntimeException::class,
-            'Empty configuration provided. Please provide valid configurations for Express Checkout API.'
-        );
+        if (empty($credentials)) {
+            throw new RuntimeException('Empty configuration provided. Please provide valid configuration for Express Checkout API.');
+        }
 
-        $this->setApiCredentials($credentials);
+        $this->setApiEnvironment($credentials);
         $this->setApiProviderConfiguration($credentials);
         $this->setCurrency(Arr::get($credentials, 'currency'));
         $this->setHttpClientConfiguration();
@@ -35,11 +33,9 @@ trait PayPalApIRequest
     public function setCurrency(string $currency = 'USD'): self
     {
         $allowedCurrencies = ['AUD', 'BRL', 'CAD', 'CZK', 'DKK', 'EUR', 'HKD', 'HUF', 'ILS', 'INR', 'JPY', 'MYR', 'MXN', 'NOK', 'NZD', 'PHP', 'PLN', 'GBP', 'SGD', 'SEK', 'CHF', 'TWD', 'THB', 'USD', 'RUB', 'CNY'];
-        throw_unless(
-            Arr::has($allowedCurrencies, $currency),
-            RuntimeException::class,
-            'Currency is not supported by PayPal.'
-        );
+        if (!in_array($currency, $allowedCurrencies)) {
+            throw new RuntimeException('Currency is not supported by PayPal.');
+        }
         $this->currency = $currency;
 
         return $this;
@@ -59,11 +55,9 @@ trait PayPalApIRequest
 
     public function getRequestHeader(string $key)
     {
-        throw_unless(
-            Arr::exists($this->options, sprintf('headers.%s', $key)),
-            RuntimeException::class,
-            'Options header is not set'
-        );
+        if (!Arr::has($this->options, sprintf('headers.%s', $key))) {
+            throw new RuntimeException('Options header is not set.');
+        }
 
         return Arr::get($this->options, sprintf('headers.%s', $key));
     }
@@ -86,17 +80,28 @@ trait PayPalApIRequest
 
     private function setValidApiEnvironment($mode)
     {
-        $this->mode = Arr::has(['sandbox', 'live'], $mode) ? $mode : 'live';
+        $this->mode = in_array($mode, ['sandbox', 'live']) ? $mode : 'live';
     }
 
     private function setApiProviderConfiguration($credentials)
     {
-        collect($credentials[$this->mode])->each(function ($value, $key) {
+        collect($credentials[$this->mode])->map(function ($value, $key) {
             $this->config[$key] = $value;
         });
-        $this->paymentAction = Arr::get($credentials, 'payment_action');
-        $this->locale = Arr::get($credentials, 'locale');
-        $this->validateSsl = Arr::get($credentials, 'validate_ssl');
+
+        $this->paymentAction = $credentials['payment_action'];
+
+        $this->locale = $credentials['locale'];
+
+        $this->validateSSL = $credentials['validate_ssl'];
+
         $this->setOptions($credentials);
+//        collect($credentials[$this->mode])->map(function ($value, $key) {
+//            $this->config[$key] = $value;
+//        });
+//        $this->paymentAction = Arr::get($credentials, 'payment_action');
+//        $this->locale = Arr::get($credentials, 'locale');
+//        $this->validateSsl = Arr::get($credentials, 'validate_ssl');
+//        $this->setOptions($credentials);
     }
 }

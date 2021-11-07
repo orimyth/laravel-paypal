@@ -3,22 +3,25 @@
 namespace shayannosrat\PayPal\Services;
 
 use Exception;
-use shayannosrat\PayPal\Traits\PayPalApiRequest;
+use shayannosrat\PayPal\Traits\PayPalRequest;
 
 class PayPalClient
 {
-    use PayPalApiRequest;
+    use PayPalRequest;
 
     public function __construct($config = '')
     {
+        // Setting PayPal API Credentials
         if (is_array($config)) {
             $this->setConfig($config);
         }
+
         $this->httpBodyParam = 'form_params';
+
         $this->options = [];
         $this->options['headers'] = [
-            'Accept' => 'application/json',
-            'Accept-Language' => $this->locale,
+            'Accept'            => 'application/json',
+            'Accept-Language'   => $this->locale,
         ];
     }
 

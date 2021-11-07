@@ -17,7 +17,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "shayannosrat\\PayPal\\Tests\\": "tests/",
+            "shayannosrat\\PayPal\\Tests\\": "tests/"
         }
     },
     "require": {

@@ -7,6 +7,7 @@ namespace shayannosrat\PayPal\Traits;
 trait PayPalApi
 {
 
+    use PayPalApi\Orders;
     public function getAccessToken()
     {
         $this->apiEndPoint = 'v1/oauth2/token';

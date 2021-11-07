@@ -6,6 +6,8 @@ namespace shayannosrat\PayPal\Tests;
 
 trait MockResponsePayloads
 {
+    use Mocks\Responses\Orders;
+
     private function mockAccessTokenResponse()
     {
         return [

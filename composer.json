@@ -1,0 +1,45 @@
+{
+    "name": "shayannosrat/laravel-paypal",
+    "description": "Laravel plugin for processing payments through PayPal. Can be used separately.",
+    "keywords": ["http", "rest", "web service", "laravel", "laravel paypal", "paypal"],
+    "authors": [
+        {
+            "name": "Shayan",
+            "email": "shayan.nosrat@t-online.de"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "shayannosrat\\PayPal\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "shayannosrat\\PayPal\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": "^8.0",
+        "guzzlehttp/guzzle": "^7.4",
+        "illuminate/support": "^8.69",
+        "nesbot/carbon": "^2.54"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "shayannosrat\\PayPal\\Providers\\PayPalServiceProvider"
+            ],
+            "aliases": {
+                "PayPal": "shayannosrat\\PayPal\\Facades\\PayPal"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

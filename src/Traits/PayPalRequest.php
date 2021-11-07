@@ -83,9 +83,9 @@ trait PayPalRequest
         $this->mode = in_array($mode, ['sandbox', 'live']) ? $mode : 'live';
     }
 
-    private function setApiProviderConfiguration($credentials)
+    private function setApiProviderConfiguration(array $credentials)
     {
-        collect($credentials[$this->mode])->each(function ($value, $key) {
+        collect($credentials[$this->mode])->each(function (string $value, string $key) {
             $this->config[$key] = $value;
         });
         $this->paymentAction = Arr::get($credentials, 'payment_action');

@@ -6,7 +6,7 @@ use shayannosrat\PayPal\Services\PayPalClient;
 
 class PayPalFacadeAccessor
 {
-    public static $provider;
+    public static PayPalFacadeAccessor|PayPalClient $provider;
 
     public static function getProvider(): self
     {

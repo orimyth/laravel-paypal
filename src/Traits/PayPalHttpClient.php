@@ -32,7 +32,7 @@ trait PayPalHttpClient
 
         foreach ($constants as $key => $value) {
             if (!defined($key)) {
-                define($key, $constants[$key]);
+                define($key, $value);
             }
         }
     }
@@ -56,7 +56,7 @@ trait PayPalHttpClient
 
         $this->httpClientConfig = [
             CURLOPT_SSLVERSION => CURL_SSLVERSION_TLSv1_2,
-            CURLOPT_SSL_VERIFYPEER => $this->validateSSL,
+            CURLOPT_SSL_VERIFYPEER => $this->validateSsl,
         ];
         $this->setClient();
         $this->setDefaultValues();
@@ -71,8 +71,8 @@ trait PayPalHttpClient
         $locale = empty($this->locale) ? 'en_US' : $this->locale;
         $this->locale = $locale;
 
-        $validateSSL = empty($this->validateSSL) ? true : $this->validateSSL;
-        $this->validateSSL = $validateSSL;
+        $validateSsl = empty($this->validateSsl) ? true : $this->validateSsl;
+        $this->validateSsl = $validateSsl;
     }
 
     private function makeHttpRequest()

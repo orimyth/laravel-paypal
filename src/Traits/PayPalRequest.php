@@ -63,9 +63,9 @@ trait PayPalRequest
     }
 
 
-    private function setConfig(array $config = [])
+    private function setConfig(array $_config = [])
     {
-        $apiConfig = function_exists('config') ? config('paypal') : $config;
+        $apiConfig = function_exists('config') ? config('paypal') : $_config;
         $this->setApiCredentials($apiConfig);
     }
 
@@ -85,23 +85,12 @@ trait PayPalRequest
 
     private function setApiProviderConfiguration($credentials)
     {
-        collect($credentials[$this->mode])->map(function ($value, $key) {
+        collect($credentials[$this->mode])->each(function ($value, $key) {
             $this->config[$key] = $value;
         });
-
-        $this->paymentAction = $credentials['payment_action'];
-
-        $this->locale = $credentials['locale'];
-
-        $this->validateSSL = $credentials['validate_ssl'];
-
+        $this->paymentAction = Arr::get($credentials, 'payment_action');
+        $this->locale = Arr::get($credentials, 'locale');
+        $this->validateSsl = Arr::get($credentials, 'validate_ssl');
         $this->setOptions($credentials);
-//        collect($credentials[$this->mode])->map(function ($value, $key) {
-//            $this->config[$key] = $value;
-//        });
-//        $this->paymentAction = Arr::get($credentials, 'payment_action');
-//        $this->locale = Arr::get($credentials, 'locale');
-//        $this->validateSsl = Arr::get($credentials, 'validate_ssl');
-//        $this->setOptions($credentials);
     }
 }

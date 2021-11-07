@@ -9,6 +9,11 @@ use shayannosrat\PayPal\Services\PayPalClient;
 
 class PayPalServiceProvider extends ServiceProvider
 {
+    protected $defer = false;
+
+    /**
+     * @psalm-suppress UndefinedFunction
+     */
     public function boot()
     {
         $this->publishes([

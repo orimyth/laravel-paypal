@@ -1,6 +1,7 @@
 {
     "name": "shayannosrat/laravel-paypal",
     "description": "Laravel plugin for processing payments through PayPal. Can be used separately.",
+    "version": "1.0.0",
     "keywords": ["http", "rest", "web service", "laravel", "laravel paypal", "paypal"],
     "authors": [
         {

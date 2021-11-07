@@ -12,8 +12,5 @@
         <ignoreFiles>
             <directory name="vendor" />
         </ignoreFiles>
-        <plugins>
-            <pluginClass class="Psalm\LaravelPlugin\Plugin"/>
-        </plugins>
     </projectFiles>
 </psalm>

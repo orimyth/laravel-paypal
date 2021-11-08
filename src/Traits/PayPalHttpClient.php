@@ -5,7 +5,6 @@ namespace shayannosrat\PayPal\Traits;
 
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\ClientException as HttpClientException;
-use Psr\Http\Message\StreamInterface;
 use RuntimeException;
 
 trait PayPalHttpClient
@@ -21,7 +20,7 @@ trait PayPalHttpClient
     private $validateSsl;
     protected $verb = 'post';
 
-    protected function setCurlConstants()
+    protected function setCurlConstants(): void
     {
         $constants = [
             'CURLOPT_SSLVERSION' => 32,
@@ -37,7 +36,7 @@ trait PayPalHttpClient
         }
     }
 
-    public function setClient($client = null)
+    public function setClient(HttpClient $client = null): void
     {
         if ($client instanceof HttpClient) {
             $this->client = $client;
@@ -50,7 +49,7 @@ trait PayPalHttpClient
         ]);
     }
 
-    protected function setHttpClientConfiguration()
+    protected function setHttpClientConfiguration(): void
     {
         $this->setCurlConstants();
 
@@ -63,7 +62,7 @@ trait PayPalHttpClient
         $this->notifyUrl = $this->config['notify_url'];
     }
 
-    private function setDefaultValues()
+    private function setDefaultValues(): void
     {
         $paymentAction = empty($this->paymentAction) ? 'Sale' : $this->paymentAction;
         $this->paymentAction = $paymentAction;
@@ -87,12 +86,12 @@ trait PayPalHttpClient
         }
     }
 
-    private function doPayPalRequest($decode = true)
+    private function doPayPalRequest(bool $decode = true): array
     {
         try {
             $response = $this->makeHttpRequest();
 
-            return ($decode === false) ? $response->getContents() : \GuzzleHttp\json_decode($response, true);
+            return ($decode === false) ? $response->getContents() : json_decode($response, true);
         } catch (RuntimeException $t) {
             $message = collect($t->getMessage())->implode('\n');
         }

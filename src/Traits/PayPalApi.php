@@ -8,7 +8,7 @@ trait PayPalApi
 {
 
     use PayPalApi\Orders;
-    public function getAccessToken()
+    public function getAccessToken(): array
     {
         $this->apiEndPoint = 'v1/oauth2/token';
         $this->apiUrl = collect([$this->config['api_url'], $this->apiEndPoint])->implode('/');
@@ -29,14 +29,13 @@ trait PayPalApi
         return $response;
     }
 
-    public function setAccessToken($response)
+    public function setAccessToken(array $response): void
     {
         $this->accessToken = $response['access_token'];
-
         $this->options['headers']['Authorization'] = "{$response['token_type']} {$this->accessToken}";
     }
 
-    private function setPayPalAppId($response)
+    private function setPayPalAppId(array $response): void
     {
         if (empty($this->config['app_id'])) {
             $this->config['app_id'] = $response['app_id'];

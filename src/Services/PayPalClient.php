@@ -9,9 +9,8 @@ class PayPalClient
 {
     use PayPalRequest;
 
-    public function __construct($config = '')
+    public function __construct(array|string $config = '')
     {
-        // Setting PayPal API Credentials
         if (is_array($config)) {
             $this->setConfig($config);
         }
@@ -25,7 +24,7 @@ class PayPalClient
         ];
     }
 
-    protected function setOptions($credentials)
+    protected function setOptions(array $credentials): void
     {
         $this->config['api_url'] = 'https://api.paypal.com';
         $this->config['gateway_url'] = 'https://www.paypal.com';

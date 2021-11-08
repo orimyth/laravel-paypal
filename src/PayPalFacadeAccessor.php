@@ -8,12 +8,12 @@ class PayPalFacadeAccessor
 {
     public static PayPalFacadeAccessor|PayPalClient $provider;
 
-    public static function getProvider(): self
+    public static function getProvider(): PayPalFacadeAccessor|PayPalClient
     {
         return self::$provider;
     }
 
-    public static function setProvider(): self
+    public static function setProvider(): PayPalFacadeAccessor|PayPalClient
     {
         self::$provider = new PayPalClient();
 

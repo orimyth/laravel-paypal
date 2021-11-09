@@ -10,7 +10,7 @@ This package contains some core code from **srmklive/laravel-paypal** but improv
 - [Support](#support)
   
 <a name="installation"></a>
-## Installation
+## Installation (works soon if 1.0 released)
 ```shell
 composer require shayannosrat/laravel-paypal
 ```

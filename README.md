@@ -1,3 +1,4 @@
+NOT ACTIVELY MAINTAINED
 # Laravel PayPal
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Tests](https://github.com/shayannosrat/laravel-paypal/actions/workflows/php.yml/badge.svg)](https://github.com/shayannosrat/laravel-paypal/actions/workflows/php.yml)
